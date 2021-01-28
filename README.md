@@ -78,3 +78,8 @@
           
      - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
 
+11. We will intially run the satellite-installer to create a userid and password and generate an answer file.  We will udpate the answer file and rerun to the installer to create our "final" configuration
+
+          # satellite-installer --scenario satellite \
+          --foreman-initial-admin-username admin \
+          --foreman-initial-admin-password Passw0rd!
