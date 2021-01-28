@@ -53,6 +53,19 @@
           --enable=rhel-server-rhscl-7-rpms \
           --enable=rhel-7-server-ansible-2.9-rpms
 
+    - Clear any meta data
+    
+          yum clean all
+          
+    - Verify repos enabled
+    
+          yum repolist enabled
+          
+ 8. Install Satellite Server packages
+ 
+        # yum update
+        
+        # yum install satellite
 
 
 
