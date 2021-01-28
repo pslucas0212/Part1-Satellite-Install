@@ -13,11 +13,11 @@
 
     - Make the changes permanent
 
-        firewall-cmd --runtime-to-permanent
+          firewall-cmd --runtime-to-permanent
 
     - Verify the firewall changes
 
-        firewall-cmd --list-all
+          firewall-cmd --list-all
 
 4. Check host name and local DNS resolution
 
@@ -37,13 +37,21 @@
     
     - You can verify the subscription
         
-        subscription-manager list --consumed
+          subscription-manager list --consumed
 
 7. Config Repos
 
     - Disable all repos
     
-        subscription-manager repos --disable "*"
+          subscription-manager repos --disable "*"
+          
+    - enable the following repos
+    
+          subscription-manager repos --enable=rhel-7-server-rpms \
+          --enable=rhel-7-server-satellite-6.8-rpms \
+          --enable=rhel-7-server-satellite-maintenance-6-rpms \
+          --enable=rhel-server-rhscl-7-rpms \
+          --enable=rhel-7-server-ansible-2.9-rpms
 
 
 
