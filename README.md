@@ -32,22 +32,7 @@
 6. Register Satellite Server to RHSM
 
         # subscription-manager register --org=14029827 --activationkey=rhel_premium
-        
-7. Syncrhonize system clock with chrony.  You need to have a time server or install chronyd on the satellite server.  I have a startum 0 time server.  To verify it synching (I like the verbose option).
-
-        # chronyc sources -v
-        
-8. Insall SOS packe on base OS
-
-        # yum install sos
        
-    - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
-
-    - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
-    
-    - You can verify the subscription
-        
-          # subscription-manager list --consumed
 
 7. Config Repos
 
@@ -71,14 +56,24 @@
     
           # yum repolist enabled
           
- 8. Install Satellite Server packages
+8. Install Satellite Server packages
  
         # yum update
         
         # yum install satellite
 
+9. Insall SOS package on base OS
 
-9.  Setup System Clock with chrony.  I have a startum 0 time server that my sytems use.  Type the following command to check the the time synch status (I like the verbose option)
+        # yum install sos
+       
+    - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
+
+    - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
+    
+    - You can verify the subscription
+        
+          # subscription-manager list --consumed
+10.  Setup System Clock with chrony.  I have a startum 0 time server that my sytems use.  Type the following command to check the the time synch status (I like the verbose option)
 
         # chronyc sources -v
 
