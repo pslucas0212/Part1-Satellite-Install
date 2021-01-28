@@ -78,5 +78,7 @@
         # yum install satellite
 
 
+9.  Setup System Clock with chrony.  I have a startum 0 time server that my sytems use.  Type the following command to check the the time synch status (I like the verbose option)
 
+        # chronyc sources -v
 
