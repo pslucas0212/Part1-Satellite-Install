@@ -71,11 +71,10 @@
 9. Insall SOS package on base OS
 
         # yum install sos
-       
-    - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
-
-   
+        
 10.  Setup System Clock with chrony.  I have a startum 0 time server that my sytems use.  Type the following command to check the the time synch status (I like the verbose option)
 
           # chronyc sources -v
+          
+     - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
 
