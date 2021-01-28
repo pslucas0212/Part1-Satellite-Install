@@ -11,11 +11,11 @@
         --add-port="67/udp" --add-port="69/udp" \
         --add-port="5000/tcp"
 
-  - Make the changes permanent
+    - Make the changes permanent
 
         firewall-cmd --runtime-to-permanent
 
-  - Verify the firewall changes
+    - Verify the firewall changes
 
         firewall-cmd --list-all
 
@@ -33,9 +33,18 @@
 
         subscription-manager register --org=14029827 --activationkey=rhel_premium
 
-    - This both registers the server and attaches a RHEL subscription to the Satellite Server
+    - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
+    
+    - You can verify the subscription
+        
+        subscription-manager list --consumed
 
-7. Attach Satellite Infrastructure Subscription
+7. Config Repos
+
+    - Disable all repos
+    
+        subscription-manager repos --disable "*"
+
 
 
 
