@@ -3,7 +3,7 @@
 1. Install RHEL 7.9
 2. Update firewall rules
   
-        firewall-cmd \
+        # firewall-cmd \
         --add-port="80/tcp" --add-port="443/tcp" \
         --add-port="5647/tcp" --add-port="8000/tcp" \
         --add-port="8140/tcp" --add-port="9090/tcp" \
@@ -13,41 +13,41 @@
 
     - Make the changes permanent
 
-          firewall-cmd --runtime-to-permanent
+          # firewall-cmd --runtime-to-permanent
 
     - Verify the firewall changes
 
-          firewall-cmd --list-all
+          # firewall-cmd --list-all
 
 4. Check host name and local DNS resolution
 
-        ping -c3 localhost
+        # ping -c3 localhost
 
-        ping -c3 `hostname -f`
+        # ping -c3 `hostname -f`
 
 5. Set static and transient hostname
 
-        hostnamectl set-hostname sat01.example.com
+        # hostnamectl set-hostname sat01.example.com
 
 6. Register Satellite Server to RHSM
 
-        subscription-manager register --org=14029827 --activationkey=rhel_premium
+        # subscription-manager register --org=14029827 --activationkey=rhel_premium
 
     - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
     
     - You can verify the subscription
         
-          subscription-manager list --consumed
+          # subscription-manager list --consumed
 
 7. Config Repos
 
     - Disable all repos
     
-          subscription-manager repos --disable "*"
+          # subscription-manager repos --disable "*"
           
     - enable the following repos
     
-          subscription-manager repos --enable=rhel-7-server-rpms \
+          # subscription-manager repos --enable=rhel-7-server-rpms \
           --enable=rhel-7-server-satellite-6.8-rpms \
           --enable=rhel-7-server-satellite-maintenance-6-rpms \
           --enable=rhel-server-rhscl-7-rpms \
@@ -55,11 +55,11 @@
 
     - Clear any meta data
     
-          yum clean all
+          # yum clean all
           
     - Verify repos enabled
     
-          yum repolist enabled
+          # yum repolist enabled
           
  8. Install Satellite Server packages
  
