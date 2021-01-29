@@ -99,3 +99,8 @@
         --foreman-proxy-dhcp-range "10.1.10.98 10.1.10.148" \
         --foreman-proxy-dhcp-gateway 10.1.10.1 \
         --foreman-proxy-dhcp-nameservers 10.1.10.200 
+
+12. On the customer portal create a manifest
+13. On the Satellite UI create an organization - operations
+    - Create a location - moline and add the location to the operations organzation
+14. Ensure that your organization is set to operations and location is set to moline and import the manifest that you create on the customer portal
