@@ -105,3 +105,5 @@
     - Create a location - moline and add the location to the operations organzation
 14. Ensure that your organization is set to operations and location is set to moline and import the manifest that you create on the customer portal
 15. Enable RHEL 8 BaseOS, AppStream and RHEL Satellite Tools and sync the repos/products
+16. Add organizations and locations to the domain target created in sstep 11.  
+    - Infrastructure | Domainds | example.com -> Locations - moline - Submit button -> Organizations - Operations - Submit button
