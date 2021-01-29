@@ -101,9 +101,29 @@
         --foreman-proxy-dhcp-nameservers 10.1.10.200 
 
 12. On the customer portal create a manifest
+
 13. On the Satellite UI create an organization - operations
     - Create a location - moline and add the location to the operations organzation
+
 14. Ensure that your organization is set to operations and location is set to moline and import the manifest that you create on the customer portal
+
 15. Enable RHEL 8 BaseOS, AppStream and RHEL Satellite Tools and sync the repos/products
-16. Add organizations and locations to the domain target created in sstep 11.  
+
+16. Add organizations and locations to the domain target created in step 11.  
     - Infrastructure | Domainds | example.com -> Locations - moline - Submit button -> Organizations - Operations - Submit button
+
+17. Create subnet via the command line:
+          
+        hammer subnet create --name operations_subnet \
+        --locations moline \
+        --organizations operations \
+        --domains example.com \
+        --network 10.1.10.0 \
+        --mask 255.255.255.0 \
+        --dns-primary 10.1.10.200 \
+        --from 10.1.10.98 \
+        --to 10.1.10.148 \
+        --dns sat01.example.com \
+        --dhcp sat01.example.com \
+        --boot-mode DHCP \
+        --ipam DHCP
