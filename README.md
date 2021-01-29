@@ -86,7 +86,7 @@
           
 11. Rerun the satellite-install to create DNS and DHC services to support provisioing from Satellite
 
-        # satellite-installer --scenario capsule \
+        # satellite-installer --scenario satellite \
         --foreman-proxy-dns true \
         --foreman-proxy-dns-managed true \
         --foreman-proxy-dns-interface ens192 \
