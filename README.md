@@ -104,3 +104,4 @@
 13. On the Satellite UI create an organization - operations
     - Create a location - moline and add the location to the operations organzation
 14. Ensure that your organization is set to operations and location is set to moline and import the manifest that you create on the customer portal
+15. Enable RHEL 8 BaseOS, AppStream and RHEL Satellite Tools and sync the repos/products
