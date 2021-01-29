@@ -78,8 +78,24 @@
           
      - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
 
-11. We will intially run the satellite-installer to create a userid and password and generate an answer file.  We will udpate the answer file and rerun to the installer to create our "final" configuration
+11. We will intially run the satellite-installer to create a userid and password and generate an answer file.  
 
           # satellite-installer --scenario satellite \
           --foreman-initial-admin-username admin \
           --foreman-initial-admin-password Passw0rd!
+          
+11. Rerun the satellite-install to create DNS and DHC services to support provisioing from Satellite
+
+        # satellite-installer --scenario capsule \
+        --foreman-proxy-dns true \
+        --foreman-proxy-dns-managed true \
+        --foreman-proxy-dns-interface ens192 \
+        --foreman-proxy-dns-zone example.com \
+        --foreman-proxy-dns-forwarders 10.1.1.254 \
+        --foreman-proxy-dns-reverse 10.1.10.in-addr.arpa \
+        --foreman-proxy-dhcp true \
+        --foreman-proxy-dhcp-managed true \
+        --foreman-proxy-dhcp-interface ens192 \
+        --foreman-proxy-dhcp-range "10.1.10.98 10.1.10.148" \
+        --foreman-proxy-dhcp-gateway 10.1.10.1 \
+        --foreman-proxy-dhcp-nameservers 10.1.10.200 
