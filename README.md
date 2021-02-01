@@ -127,3 +127,5 @@
         --dhcp sat01.example.com \
         --boot-mode DHCP \
         --ipam DHCP
+
+18. Create compute resource
