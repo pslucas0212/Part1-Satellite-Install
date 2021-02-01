@@ -129,3 +129,5 @@
         --ipam DHCP
 
 18. Create compute resource
+
+19.  Add VMWare vSphere Images to Satellite Server
