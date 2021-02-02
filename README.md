@@ -112,7 +112,34 @@
 16. Add organizations and locations to the domain target created in step 11.  
     - Infrastructure | Domainds | example.com -> Locations - moline - Submit button -> Organizations - Operations - Submit button
 
-17. Create subnet via the command line:
+17. Create Lifecyce Environment (LE)
+
+        # hammer lifecycle-environment create --description le-ops-rhel8-prem-server --prior Library --name le-ops-rhel8-prem-server --organization "operations"
+18. Create a Content View (CV)
+
+        # hammer content-view create --description cv-rhel8-prem-server --name cv-rhel8-prem-server --organization "operations"
+19. LIst Repository IDs
+
+        # hammer repository list --organization operations
+20. Add Repositories to Convent view
+     
+        # hammer content-view update --repository-ids 1,3,4 --name "cv-rhel8-prem-server" --organization "operations"
+21. Publish Content to Library
+      
+        # hammer content-view publish --name "cv-rhel8-prem-server" --organization "operations" --async
+22. Promote Content into Content View
+        
+        # hammer content-view version promote --content-view "cv-rhel8-prem-server" --to-lifecycle-environment "le-ops-rhel8-prem-server" --organization "operations" --async
+23. Create an Activation Key
+
+        # hammer activation-key create --content-view "cv-rhel8-prem-server" --lifecycle-environment "le-ops-rhel8-prem-server" --name "ak-ops-rhel8-prem-server" --organization "operations"
+24.  List Available Subscriptions
+
+        # hammer subscription list --fields id,name,quantity,consumed --organization "operations"
+25. Add Subscriptions to the Activation key
+
+        # hammer activation-key add-subscription --name "ak-ops-rhel8-prem-server" --subscription-id 7 --organization "operations"
+26. Create subnet via the command line:
           
         hammer subnet create --name operations_subnet \
         --locations moline \
@@ -128,6 +155,13 @@
         --boot-mode DHCP \
         --ipam DHCP
 
-18. Create compute resource
+27. Create compute resource
 
-19.  Add VMWare vSphere Images to Satellite Server
+28. Create a compute profile
+    - Infrastructure | Compute Profiles | click Create Compute Profile button
+    - Give the Compute Profile a name - "vmware-small" - click the submit button
+    - For the vmware-small Compute Profle click the vSphere Lab DataCenter link (previously create Compute Resource).
+    - Complete Attributes
+        - Chose VMWare EXSi Cluster - LabCluster
+        - Guest OS RHEL 8
+        - Virtual H/W Version 14 EXSi 6.7
