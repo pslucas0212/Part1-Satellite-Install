@@ -134,8 +134,8 @@
 
         # hammer activation-key create --content-view "cv-rhel8-prem-server" --lifecycle-environment "le-ops-rhel8-prem-server" --name "ak-ops-rhel8-prem-server" --organization "operations"
 24.  List Available Subscriptions
-
-        # hammer subscription list --fields id,name,quantity,consumed --organization "operations"
+ 
+         # hammer subscription list --fields id,name,quantity,consumed --organization "operations"
 25. Add Subscriptions to the Activation key
 
         # hammer activation-key add-subscription --name "ak-ops-rhel8-prem-server" --subscription-id 7 --organization "operations"
