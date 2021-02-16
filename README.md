@@ -178,3 +178,12 @@
         
           # rpm -ivh http://sat01.example.com/pub/katello-ca-consumer-latest.noarch.rpm
           # subscription-manager register --org=operations --activationkey=ak-ops-rhel8-prem-server
+          
+ 30. Get IDs for Operating System, Architecture and Compute Resrouce for the following step.
+ 
+          # hammer os list; hammer architecture list; hammer compute-resource list
+ 
+ 31. Create Image in Satellite - 
+          
+          
+          # hammer compute-resource image create --operatingsystem-id 2 --architecture-id 1 --compute-resource-id 1 --user-data true --uuid template-rhel8-cloudinit --username root --name img-rhel8-prem-server
