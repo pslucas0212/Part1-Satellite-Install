@@ -187,3 +187,10 @@
           
           
           # hammer compute-resource image create --operatingsystem-id 2 --architecture-id 1 --compute-resource-id 1 --user-data true --uuid template-rhel8-cloudinit --username root --name img-rhel8-prem-server
+
+
+## Continuing on
+
+32. Create a Compute Profile
+
+33. Create a Host Group
