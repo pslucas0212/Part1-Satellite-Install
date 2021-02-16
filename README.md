@@ -1,5 +1,8 @@
 # Satellite Installation Instructions
 
+### Resources
+- https://access.redhat.com/blogs/1169563/posts/3640721
+
 1. Install RHEL 7.9
 2. Update firewall rules
   
