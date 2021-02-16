@@ -75,7 +75,7 @@
 
         # yum install sos
         
-10.  Setup System Clock with chrony.  I have a startum 0 time server that my sytems use.  Type the following command to check the the time synch status (I like the verbose option)
+10.  Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
 
           # chronyc sources -v
           
@@ -113,7 +113,7 @@
 15. Enable RHEL 8 BaseOS, AppStream and RHEL Satellite Tools and sync the repos/products
 
 16. Add organizations and locations to the domain target created in step 11.  
-    - Infrastructure | Domainds | example.com -> Locations - moline - Submit button -> Organizations - Operations - Submit button
+    - Infrastructure | Domains | example.com -> Locations - moline - Submit button -> Organizations - Operations - Submit button
 
 17. Create Lifecyce Environment (LE)
 
