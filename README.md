@@ -176,4 +176,5 @@
     - Follow VMWare steps to create a New Virtual Machine - We are creating a base system from which we will create a template for future provisioning
     - When registering the system use the following command:
         
+          # rpm -ivh http://sat01.example.com/pub/katello-ca-consumer-latest.noarch.rpm
           # subscription-manager register --org=operations --activationkey=ak-ops-rhel8-prem-server
