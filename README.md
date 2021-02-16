@@ -171,3 +171,6 @@
 
 29. Create Empty Virtual Machine
     - Follow VMWare steps to create a New Virtual Machine - We are creating a base system from which we will create a template for future provisioning
+    - When registering the system use the following command:
+        
+          # subscription-manager register --org=operations --activationkey=ak-ops-rhel8-prem-server
