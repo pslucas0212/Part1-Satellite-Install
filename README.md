@@ -194,3 +194,19 @@
 32. Create a Compute Profile
 
 33. Create a Host Group
+
+## Foreman Userdata Plugin Configuration
+
+35. Check Foreman Version
+
+          # rpm -q foreman
+          
+36. Enabled Foreman Plugin Repository
+
+        # cat > /etc/yum.repos.d/foreman-plugins.repo <<EOF
+[foreman-plugins]
+name=Foreman plugins
+baseurl=http://yum.theforeman.org/plugins/1.22/el7/x86_64/
+enabled=1
+gpgcheck=0
+EOF
