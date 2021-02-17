@@ -214,3 +214,7 @@
         enabled=1
         gpgcheck=0
         EOF
+
+37. Install the Foreman Userdata plugin
+
+        #
