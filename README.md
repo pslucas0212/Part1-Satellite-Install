@@ -195,27 +195,5 @@
 
 33. Create a Host Group
 
-## Foreman Userdata Plugin Configuration
-
-35. Check Foreman Version
-
-          # rpm -q foreman
-          
-    - My Satellite 6.8.x results indicated the foreman version was foreman-2.1.2.24-1.el7sat.noarch
-    - Chose this path for the base url -> /plugins/2.1/el7/x86_64
-    - Available foreman plugin version can be checked here -> https://yum.theforeman.org/plugins/
-          
-36. Enabled Foreman Plugin Repository
-
-        # cat > /etc/yum.repos.d/foreman-plugins.repo <<EOF
-        [foreman-plugins]
-        name=Foreman plugins
-        baseurl=http://yum.theforeman.org/plugins/2.1/el7/x86_64/
-        enabled=1
-        gpgcheck=0
-        EOF
-
-37. Install the Foreman Userdata plugin
-
-        # foreman-maintain packages install -y tfm-rubygem-foreman_userdata
-
+34. ?? Setting up the Discovery Service for iPXE
+    -  See section 5.1 -> https://access.redhat.com/documentation/en-us/red_hat_satellite/6.8/html-single/provisioning_guide/index#Configuring_Networking-Configuring_gPXE_to_Reduce_Provisioning_Times
