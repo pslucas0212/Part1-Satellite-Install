@@ -201,12 +201,16 @@
 
           # rpm -q foreman
           
+    - My Satellite 6.8.x results indicated the foreman version was foreman-2.1.2.24-1.el7sat.noarch
+    - Chose this path for the base url -> /plugins/2.1/el7/x86_64
+    - Available foreman plugin version can be checked here -> https://yum.theforeman.org/plugins/
+          
 36. Enabled Foreman Plugin Repository
 
         # cat > /etc/yum.repos.d/foreman-plugins.repo <<EOF
-[foreman-plugins]
-name=Foreman plugins
-baseurl=http://yum.theforeman.org/plugins/1.22/el7/x86_64/
-enabled=1
-gpgcheck=0
-EOF
+        [foreman-plugins]
+        name=Foreman plugins
+        baseurl=http://yum.theforeman.org/plugins/2.1/el7/x86_64/
+        enabled=1
+        gpgcheck=0
+        EOF
