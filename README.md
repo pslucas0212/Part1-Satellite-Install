@@ -217,4 +217,5 @@
 
 37. Install the Foreman Userdata plugin
 
-        #
+        # foreman-maintain packages install -y tfm-rubygem-foreman_userdata
+
