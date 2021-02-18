@@ -170,7 +170,9 @@
         - Virtual H/W Version 14 EXSi 6.7
         
         
-## Tempate Preparation in vMware
+## Tempate Preparation in vMware ???? Move this section up to the front???
+
+
 
 29. Create Empty Virtual Machine
     - Follow VMWare steps to create a New Virtual Machine - We are creating a base system from which we will create a template for future provisioning
@@ -190,6 +192,7 @@
 
 
 ## Continuing on
+??.  See section on configuring provisioning templates
 
 32. Create a Compute Profile
 
