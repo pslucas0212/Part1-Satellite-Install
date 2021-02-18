@@ -198,7 +198,7 @@
 
           # hammer template create --name vmware-cloud-init --file ~/vmware-cloud-init-template.erb --locations moline --organizations operations --operatingsystem-ids 1 --type cloud-init
           
-          # hammer template create --name vmware-userdata --file ~/vmware-userdata-template.erb --locations loc-example --organizations org-example --operatingsystem-ids 1 --type user_data
+          # hammer template create --name vmware-userdata --file ~/vmware-userdata-template.erb --locations moline --organizations operations --operatingsystem-ids 1 --type user_data
 
 
 
