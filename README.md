@@ -4,7 +4,22 @@
 - https://access.redhat.com/blogs/1169563/posts/3640721
 
 1. Install RHEL 7.9
-2. Update firewall rules
+
+2. Configured nfs client shared mount point for external DNS and DHCP
+  - create shared DNS and DHCP config directory.  ex. /mnt/satshare
+  - update /etc/fstab file with the line and reload systemctl daemon
+      
+        ds01.example.com:/volume2/DNS_DHCP_SHARE	/mnt/satshare	nfs	defaults	0 0
+        systemctl daemon-reload
+        
+  - mount shared folder
+
+        mount -t nfs ds01.example.com:/volume2/DNS_DHCP_SHARE /mnt/satshare
+        
+        
+       
+
+3. Update firewall rules
   
         # firewall-cmd \
         --add-port="80/tcp" --add-port="443/tcp" \
