@@ -4,10 +4,11 @@
 ### Pre-Reqs
 
 - For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
+
 - Install RHEL 7.9
-- Install all patches on your RHEL 7.9 instance
+  - Install all patches on your RHEL 7.9 instance
         
-        # yum -y update
+          # yum -y update
 
 
 - **Note:** If you want to have Satellite grab an IP address via DHCP and automatically udpate your DNS with your provisioned RHEL instance, you'll need to store the need to make the *** DHCP and the DNS forward/reverse zone files available to Satellite on a shared drive. 
@@ -44,17 +45,17 @@
 
           # firewall-cmd --list-all
 
-4. Check host name and local DNS resolution
+- Check host name and local DNS resolution
 
         # ping -c3 localhost
 
         # ping -c3 `hostname -f`
 
-5. Set static and transient hostname
+- Set static and transient hostname
 
         # hostnamectl set-hostname sat01.example.com
 
-6. Register Satellite Server to RHSM
+- Register Satellite Server to RHSM
 
         # subscription-manager register --org=14029827 --activationkey=rhel_premium
         
@@ -65,7 +66,7 @@
           # subscription-manager list --consumed
        
 
-7. Config Repos
+- Config Repos
 
     - Disable all repos
     
@@ -87,29 +88,29 @@
     
           # yum repolist enabled
           
-8. Install Satellite Server packages
+- Install Satellite Server packages
  
         # yum update
         
         # yum install satellite
 
-9. Insall SOS package on base OS
+- Insall SOS package on base OS
 
         # yum install sos
         
-10.  Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
+- Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
 
           # chronyc sources -v
           
      - The system is prepped now and you may want to take a snapshot if running in a virtualized environment
 
-11. We will intially run the satellite-installer to create a userid and password and generate an answer file.  
+- We will intially run the satellite-installer to create a userid and password and generate an answer file.  
 
           # satellite-installer --scenario satellite \
           --foreman-initial-admin-username admin \
           --foreman-initial-admin-password Passw0rd!
           
-11. Rerun the satellite-install to create DNS and DHC services to support provisioing from Satellite
+- Rerun the satellite-install to create DNS and DHC services to support provisioing from Satellite
 
         # satellite-installer --scenario satellite \
         --foreman-proxy-dns true \
