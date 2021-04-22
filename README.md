@@ -1,11 +1,18 @@
-# Satellite Installation Instructions
+# DRAFT - Satellite Installation Instructions - DRAFT
 
-### Resources
-- https://access.redhat.com/blogs/1169563/posts/3640721
+- updated 2021-04-22
+### Pre-Reqs
 
-1. Install RHEL 7.9
+- For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
+- Install RHEL 7.9
+- Install all patches on your RHEL 7.9 instance
+        
+        # yum -y update
 
-2. Configured nfs client shared mount point for external DNS and DHCP
+
+- **Note:** If you want to have Satellite grab an IP address via DHCP and automatically udpate your DNS with your provisioned RHEL instance, you'll need to store the need to make the *** DHCP and the DNS forward/reverse zone files available to Satellite on a shared drive. 
+
+- Configured nfs client shared mount point for external DNS and DHCP
   - create shared DNS and DHCP config directory.  ex. /mnt/satshare
   - update /etc/fstab file with the line and reload systemctl daemon
       
@@ -19,7 +26,7 @@
         
        
 
-3. Update firewall rules
+- Update firewall rules
   
         # firewall-cmd \
         --add-port="80/tcp" --add-port="443/tcp" \
@@ -224,3 +231,7 @@
 
 34. ?? Setting up the Discovery Service for iPXE
     -  See section 5.1 -> https://access.redhat.com/documentation/en-us/red_hat_satellite/6.8/html-single/provisioning_guide/index#Configuring_Networking-Configuring_gPXE_to_Reduce_Provisioning_Times
+
+
+### Resources
+- https://access.redhat.com/blogs/1169563/posts/3640721
