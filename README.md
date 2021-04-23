@@ -57,7 +57,7 @@
 
 - Register Satellite Server to RHSM
 
-        # subscription-manager register --org=14029827 --activationkey=rhel_premium
+        # subscription-manager register --org=<org id> --activationkey=<activation key>
         
     - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
     
