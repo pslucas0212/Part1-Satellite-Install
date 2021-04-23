@@ -1,6 +1,9 @@
 # DRAFT - Satellite Installation Instructions - DRAFT
 
+In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  The infrastructure is build on small lab vSphere 6.7 environment which has internet access for the installation.
+
 - updated 2021-04-22
+
 ### Pre-Reqs
 
 - For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
