@@ -48,7 +48,17 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 ```
 # chronyc sources -v
 ```
-
+- Check host name and local DNS resolution.  Use dig to test for and reverse lo
+```
+# ping -c3 localhost
+# ping -c3 `hostname -f`
+# dig sat01.example.com +short
+# dig -x 10.1.10.251 +short
+```    
+- To avoid discrepancies with static and transient host names, set all the host names on the system 
+```
+# hostnamectl set-hostname sat01.example.com
+```
 #### Configure and enable repositories
 
 - Disable all repos
