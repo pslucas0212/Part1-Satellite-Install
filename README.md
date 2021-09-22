@@ -87,7 +87,7 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 
 - We will intially run the satellite-installer to create a userid and password and generate an answer file.  
 ```
-# satellite-installer --scenario satellite \
+# sudo satellite-installer --scenario satellite \
   --foreman-initial-admin-username admin \
   --foreman-initial-admin-password Passw0rd!
 ```
