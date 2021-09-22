@@ -2,20 +2,28 @@
 
 In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  The infrastructure is build on small lab vSphere 6.7 environment which has internet access for the installation.
 
-- updated 2021-04-22
+- updated 2021-09-22
 
 ### Pre-Reqs
 
 - For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
 
-- Install RHEL 7.9
-  - Install all patches on your RHEL 7.9 instance
-        
-          # yum -y update
+- Install RHEL 7.9.  For this example we have enabled SCA on the Red Hat Customer portal and do not need to attach a subscription.
 
-
+- Register Satellite Server to RHSM
+```
+# subscription-manager register --org=<org id> --activationkey=<activation key>
+```
+- You can verify the registration
+```
+# subscription-manager status
+```       
+  Install all patches on your RHEL 7.9 instance:
+```
+# yum -y update
+```
+ 
 - **Note:** If you want to have Satellite grab an IP address via DHCP and automatically udpate your DNS with your provisioned RHEL instance, you'll need to store the need to make the *** DHCP and the DNS forward/reverse zone files available to Satellite on a shared drive. 
-
 - Configured nfs client shared mount point for external DNS and DHCP
   - create shared DNS and DHCP config directory.  ex. /mnt/satshare
   - update /etc/fstab file with the line and reload systemctl daemon
@@ -31,43 +39,46 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
        
 
 - Update firewall rules
-  
-        # firewall-cmd \
-        --add-port="80/tcp" --add-port="443/tcp" \
-        --add-port="5647/tcp" --add-port="8000/tcp" \
-        --add-port="8140/tcp" --add-port="9090/tcp" \
-        --add-port="53/udp" --add-port="53/tcp" \
-        --add-port="67/udp" --add-port="69/udp" \
-        --add-port="5000/tcp"
+```
+# firewall-cmd \
+  --add-port="80/tcp" --add-port="443/tcp" \
+  --add-port="5647/tcp" --add-port="8000/tcp" \
+  --add-port="8140/tcp" --add-port="9090/tcp" \
+  --add-port="53/udp" --add-port="53/tcp" \
+  --add-port="67/udp" --add-port="69/udp" \
+  --add-port="5000/tcp"
+```
 
-    - Make the changes permanent
+- Make the changes permanent
+```
+# firewall-cmd --runtime-to-permanent
+```
 
-          # firewall-cmd --runtime-to-permanent
-
-    - Verify the firewall changes
-
-          # firewall-cmd --list-all
+- Verify the firewall changes
+```
+# firewall-cmd --list-all
+```
 
 - Check host name and local DNS resolution
-
-        # ping -c3 localhost
-
-        # ping -c3 `hostname -f`
-
+```
+# ping -c3 localhost
+# ping -c3 `hostname -f`
+```
 - Set static and transient hostname
-
-        # hostnamectl set-hostname sat01.example.com
-
+```
+# hostnamectl set-hostname sat01.example.com
+```
 - Register Satellite Server to RHSM
-
-        # subscription-manager register --org=<org id> --activationkey=<activation key>
-        
-    - This both registers the server and attaches a Satellite Infrastructure subscription to the  Server
+```
+# subscription-manager register --org=<org id> --activationkey=<activation key>
+```        
+    - For this example we have enabled SCA on the Red Hat Customer portal and do not need to attach a subscription.
     
-    - You can verify the subscription
-        
-          # subscription-manager list --consumed
        
+- You can verify the registration
+```
+# subscription-manager status
+```       
 
 - Config Repos
 
@@ -78,7 +89,7 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
     - enable the following repos
     
           # subscription-manager repos --enable=rhel-7-server-rpms \
-          --enable=rhel-7-server-satellite-6.8-rpms \
+          --enable=rhel-7-server-satellite-6.9-rpms \
           --enable=rhel-7-server-satellite-maintenance-6-rpms \
           --enable=rhel-server-rhscl-7-rpms \
           --enable=rhel-7-server-ansible-2.9-rpms
