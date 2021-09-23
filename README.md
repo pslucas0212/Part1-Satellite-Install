@@ -128,7 +128,8 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
   - update /etc/fstab file with the line and reload systemctl daemon
 ```      
 ds01.example.com:/volume2/DNS_DHCP_SHARE	/mnt/satshare	nfs	defaults	0 0
-
+```
+```
 # systemctl daemon-reload
 ```        
 - mount shared folder
