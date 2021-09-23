@@ -27,12 +27,12 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 - Update firewall rules
 ```
 # sudo firewall-cmd \
-  --add-port="80/tcp" --add-port="443/tcp" \
-  --add-port="5647/tcp" --add-port="8000/tcp" \
-  --add-port="8140/tcp" --add-port="9090/tcp" \
-  --add-port="53/udp" --add-port="53/tcp" \
-  --add-port="67/udp" --add-port="69/udp" \
-  --add-port="5000/tcp"
+--add-port="80/tcp" --add-port="443/tcp" \
+--add-port="5647/tcp" --add-port="8000/tcp" \
+--add-port="8140/tcp" --add-port="9090/tcp" \
+--add-port="53/udp" --add-port="53/tcp" \
+--add-port="67/udp" --add-port="69/udp" \
+--add-port="5000/tcp"
 ```
 
 - Make the changes permanent
@@ -68,10 +68,10 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 - enable the following repos
 ```    
 # sudo subscription-manager repos --enable=rhel-7-server-rpms \
-  --enable=rhel-7-server-satellite-6.9-rpms \
-  --enable=rhel-7-server-satellite-maintenance-6-rpms \
-  --enable=rhel-server-rhscl-7-rpms \
-  --enable=rhel-7-server-ansible-2.9-rpms
+--enable=rhel-7-server-satellite-6.9-rpms \
+--enable=rhel-7-server-satellite-maintenance-6-rpms \
+--enable=rhel-server-rhscl-7-rpms \
+--enable=rhel-7-server-ansible-2.9-rpms
 ```
 - Clear any meta data
 ```    
@@ -98,8 +98,8 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 - We will intially run the satellite-installer to create a userid and password and generate an answer file.  
 ```
 # sudo satellite-installer --scenario satellite \
-  --foreman-initial-admin-username admin \
-  --foreman-initial-admin-password Passw0rd!
+--foreman-initial-admin-username admin \
+--foreman-initial-admin-password Passw0rd!
 ```
 
 
@@ -131,7 +131,7 @@ ds01.example.com:/volume2/DNS_DHCP_SHARE	/mnt/satshare	nfs	defaults	0 0
 
 # systemctl daemon-reload
 ```        
-  - mount shared folder
+- mount shared folder
 ```
 mount -t nfs ds01.example.com:/volume2/DNS_DHCP_SHARE /mnt/satshare
 ```        
