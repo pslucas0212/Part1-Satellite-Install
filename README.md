@@ -106,34 +106,35 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 
 
 - Rerun the satellite-install to create DNS and DHC services to support provisioing from Satellite
-
-        # satellite-installer --scenario satellite \
-        --foreman-proxy-dns true \
-        --foreman-proxy-dns-managed true \
-        --foreman-proxy-dns-interface ens192 \
-        --foreman-proxy-dns-zone example.com \
-        --foreman-proxy-dns-forwarders 10.1.1.254 \
-        --foreman-proxy-dns-reverse 10.1.10.in-addr.arpa \
-        --foreman-proxy-dhcp true \
-        --foreman-proxy-dhcp-managed true \
-        --foreman-proxy-dhcp-interface ens192 \
-        --foreman-proxy-dhcp-range "10.1.10.98 10.1.10.148" \
-        --foreman-proxy-dhcp-gateway 10.1.10.1 \
-        --foreman-proxy-dhcp-nameservers 10.1.10.200 
-
+```
+# satellite-installer --scenario satellite \
+--foreman-proxy-dns true \
+--foreman-proxy-dns-managed true \
+--foreman-proxy-dns-interface ens192 \
+--foreman-proxy-dns-zone example.com \
+--foreman-proxy-dns-forwarders 10.1.1.254 \
+--foreman-proxy-dns-reverse 10.1.10.in-addr.arpa \
+--foreman-proxy-dhcp true \
+--foreman-proxy-dhcp-managed true \
+--foreman-proxy-dhcp-interface ens192 \
+--foreman-proxy-dhcp-range "10.1.10.98 10.1.10.148" \
+--foreman-proxy-dhcp-gateway 10.1.10.1 \
+--foreman-proxy-dhcp-nameservers 10.1.10.200 
+```
 
 - **Note:** If you want to have Satellite grab an IP address via DHCP and automatically udpate your DNS with your provisioned RHEL instance, you'll need to store the need to make the *** DHCP and the DNS forward/reverse zone files available to Satellite on a shared drive. 
 - Configured nfs client shared mount point for external DNS and DHCP
   - create shared DNS and DHCP config directory.  ex. /mnt/satshare
   - update /etc/fstab file with the line and reload systemctl daemon
-      
-        ds01.example.com:/volume2/DNS_DHCP_SHARE	/mnt/satshare	nfs	defaults	0 0
-        systemctl daemon-reload
-        
-  - mount shared folder
+```      
+ds01.example.com:/volume2/DNS_DHCP_SHARE	/mnt/satshare	nfs	defaults	0 0
 
-        mount -t nfs ds01.example.com:/volume2/DNS_DHCP_SHARE /mnt/satshare
-        
+# systemctl daemon-reload
+```        
+  - mount shared folder
+```
+mount -t nfs ds01.example.com:/volume2/DNS_DHCP_SHARE /mnt/satshare
+```        
 - Check host name and local DNS resolution
 ```
 # ping -c3 localhost
