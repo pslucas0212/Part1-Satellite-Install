@@ -6,15 +6,14 @@ In this guide, I'm documenting the steps for a simple "lab" install of Satellite
 
 ### Pre-Reqs
 
-- For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
 
-- Install RHEL 7.9.  For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription.
+Create a VM for Satellite and install RHEL 7.9.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.
 
-- Register Satellite Server to RHSM
+Register Satellite Server to RHSM
 ```
 # sudo subscription-manager register --org=<org id> --activationkey=<activation key>
 ```
-- You can verify the registration
+You can verify the registration
 ```
 # sudo subscription-manager status
 ```       
@@ -24,13 +23,13 @@ I would also recommend registering this server to Insights.
 # insights-client --enable
 ```
 
-  Install all patches on your RHEL 7.9 instance:
+Install all patches on your RHEL 7.9 instance:
 ```
 # sudo yum -y update
 ```
  
 
-- Update firewall rules
+Update the firewall rules for Satellite
 ```
 # sudo firewall-cmd \
 --add-port="80/tcp" --add-port="443/tcp" \
@@ -41,37 +40,37 @@ I would also recommend registering this server to Insights.
 --add-port="5000/tcp"
 ```
 
-- Make the changes permanent
+Make the firewall changes permanent
 ```
 # sudo firewall-cmd --runtime-to-permanent
 ```
 
-- Verify the firewall changes
+Verify the firewall changes
 ```
 # sudo firewall-cmd --list-all
 ```
-- Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
+Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
 ```
 # chronyc sources -v
 ```
-- Check host name and local DNS resolution.  Use dig to test for and reverse lo
+Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup
 ```
 # ping -c3 localhost
 # ping -c3 `hostname -f`
 # dig sat01.example.com +short
 # dig -x 10.1.10.251 +short
 ```    
-- To avoid discrepancies with static and transient host names, set all the host names on the system 
+To avoid discrepancies with static and transient host names, set all the host names on the system 
 ```
 # hostnamectl set-hostname sat01.example.com
 ```
 #### Configure and enable repositories
 
-- Disable all repos
+Disable all repos
 ```    
 # sudo subscription-manager repos --disable "*"
 ```       
-- enable the following repos
+enable the following repos
 ```    
 # sudo subscription-manager repos --enable=rhel-7-server-rpms \
 --enable=rhel-7-server-satellite-6.9-rpms \
@@ -79,11 +78,11 @@ I would also recommend registering this server to Insights.
 --enable=rhel-server-rhscl-7-rpms \
 --enable=rhel-7-server-ansible-2.9-rpms
 ```
-- Clear any meta data
+Clear any meta data
 ```    
 # sudo yum clean all
 ```          
-- Verify repos enabled
+Verify repos enabled
 ```    
 # sudo yum repolist enabled
 # sudo subscription-manager repos --list-enabled
