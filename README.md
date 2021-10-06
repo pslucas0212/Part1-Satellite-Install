@@ -1,8 +1,8 @@
 # DRAFT - Satellite Installation Instructions - DRAFT
 
-In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  The infrastructure is deployed to a small vSphere 6.7 lab environment which has internet access for the installation.
+In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  The infrastructure is deployed to a small vSphere 6.7 lab environment which has internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.
 
-- updated 2021-09-22
+- updated 2021-10-06
 
 ### Pre-Reqs
 
@@ -102,6 +102,24 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 --foreman-initial-admin-password Passw0rd!
 ```
 
+```
+# satellite-installer --foreman-proxy-dhcp true \
+--foreman-proxy-dhcp-managed true \
+--foreman-proxy-dhcp-gateway "10.1.10.1" \
+--foreman-proxy-dhcp-interface "ens192" \
+--foreman-proxy-dhcp-nameservers "10.1.10.254" \
+--foreman-proxy-dhcp-range "10.1.10.149 10.1.10.199" \
+--foreman-proxy-dhcp-server "10.1.10.254" \
+--foreman-proxy-dns true \
+--foreman-proxy-dns-managed true \
+--foreman-proxy-dns-forwarders "10.1.1.254" \
+--foreman-proxy-dns-interface "ens192" \
+--foreman-proxy-dns-reverse "10.1.10.in-addr.arpa" \
+--foreman-proxy-dns-server "127.0.0.1" \
+--foreman-proxy-dns-zone "example.com" \
+--foreman-proxy-tftp true \
+--foreman-proxy-tftp-managed true
+```
 
 
 
