@@ -1,6 +1,6 @@
-# DRAFT - Satellite Installation Instructions - DRAFT
+Satellite Installation Instructions 
 
-In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  The infrastructure is deployed to a small vSphere 6.7 lab environment which has internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.
+In this guide, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.
 
 - updated 2021-10-06
 
@@ -8,7 +8,7 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 
 - For this example, I created a VM on vSphere with 4 vCPUS, 20GB RAM and 400GB "local" drive
 
-- Install RHEL 7.9.  For this example we have enabled SCA on the Red Hat Customer portal and do not need to attach a subscription.
+- Install RHEL 7.9.  For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription.
 
 - Register Satellite Server to RHSM
 ```
@@ -18,6 +18,12 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 ```
 # sudo subscription-manager status
 ```       
+I would also recommend registering this server to Insights.  
+```
+# yum -y install insights-client
+# insights-client --enable
+```
+
   Install all patches on your RHEL 7.9 instance:
 ```
 # sudo yum -y update
@@ -121,6 +127,20 @@ In this guide, I'm documenting the steps for a "lab" install of Satellite 6.9.  
 --foreman-proxy-tftp-managed true
 ```
 
+Use the following command to find the name of the Satellite server you just updated
+```
+# hammer proxy list
+```
+
+See the services configured on your Satellite server
+```
+# hammer proxy info --name sat01.example.com
+```
+
+If the just added services do not show, try refreshing the Satellite features
+```
+# hammer proxy refresh-features --name sat01.example.com
+```
 
 
 ### Resources
