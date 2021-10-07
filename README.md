@@ -102,13 +102,13 @@ Verify repos enabled
 # sudo yum install sos
 ```
 
-- We will intially run the satellite-installer to create a userid and password and generate an answer file.  
+- We will intially run the satellite-installer to create a userid and password and generate an answer file.  This will take several minutes to complete.  
 ```
 # sudo satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
 --foreman-initial-admin-password Passw0rd!
 ```
-- Rerun the satellite-install to create DNS and DHCP services to support provisioing from Satellite
+- Rerun the satellite-install to create DNS and DHCP services to support provisioing from Satellite.  This will take several minutes to complete.  
 ```
 # satellite-installer --foreman-proxy-dhcp true \
 --foreman-proxy-dhcp-managed true \
@@ -142,6 +142,17 @@ If the just added services do not show, try refreshing the Satellite features
 ```
 # hammer proxy refresh-features --name sat01.example.com
 ```
+
+We can now launch and login to the Satellite console by typeing [http://sat01.example.com](http://sat01.example.com) for the Satellite url.  Satellite will reditect the browser to Satellite's secure login in page.  You will need to accept Satellite's certificate for your browser.  
+
+For this example we are using a local login.  For production work you will want to integrate your IDM system with Satelllite. Enter the user id and password and click Login button.  
+
+![Click Login button](/images/sat01.png)  
+
+You are now at the Satellite home screen.  
+
+[Satellite Home Srceen](/images/sat02.png)
+
 
 
 ### Resources
