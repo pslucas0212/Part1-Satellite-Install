@@ -1,6 +1,8 @@
-Satellite Installation Instructions 
+# Satellite Installation Instructions 
 
-In this guide, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.
+In this multie-part tutorial we will covering how to provision VMs to a vSphere environment from Red Hat Satellite.
+
+In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.
 
 - updated 2021-10-06
 
