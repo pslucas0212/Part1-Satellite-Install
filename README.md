@@ -143,6 +143,8 @@ If the just added services do not show, try refreshing the Satellite features
 # hammer proxy refresh-features --name sat01.example.com
 ```
 
+### Login into the Satellite console  
+
 We can now launch and login to the Satellite console by typeing [http://sat01.example.com](http://sat01.example.com) for the Satellite url.  Satellite will reditect the browser to Satellite's secure login in page.  You will need to accept Satellite's certificate for your browser.  
 
 For this example we are using a local login.  For production work you will want to integrate your IDM system with Satelllite. Enter the user id and password and click Login button.  
