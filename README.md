@@ -4,7 +4,7 @@ In this multie-part tutorial we will covering how to provision RHEL VMs to a vSp
 
 In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services.  Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.
 
-- updated 2021-10-06
+- updated 2021-10-07
 
 ### Pre-Reqs
 
@@ -145,7 +145,7 @@ If the just added services do not show, try refreshing the Satellite features
 
 ### Login into the Satellite console  
 
-We can now launch and login to the Satellite console by typeing [http://sat01.example.com](http://sat01.example.com) for the Satellite url.  Satellite will reditect the browser to Satellite's secure login in page.  You will need to accept Satellite's certificate for your browser.  
+We can now launch and login to the Satellite console by entering [http://sat01.example.com](http://sat01.example.com) for the Satellite url.  Satellite will redirect the browser to Satellite's secure login page.  You will need to accept Satellite's certificate for your browser.  
 
 For this example we are using a local login.  For production work you will want to integrate your IDM system with Satelllite. Enter the user id and password and click Login button.  
 
