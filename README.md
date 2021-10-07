@@ -1,4 +1,4 @@
-# Part 1: Satellite Installation Instructions 
+# Part 1: Satellite Installation   
 
 
 In this multi-part tutorial we will covering how to provision RHEL VMs to a vSphere environment from Red Hat Satellite.
