@@ -151,7 +151,7 @@ For this example we are using a local login.  For production work you will want 
 
 You are now at the Satellite home screen.  
 
-[Satellite Home Srceen](/images/sat02.png)  
+![Satellite Home Srceen](/images/sat02.png)  
 
 
 
