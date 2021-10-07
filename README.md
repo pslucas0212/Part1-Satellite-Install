@@ -1,11 +1,13 @@
 # Satellite Installation Instructions 
 
-- updated 2021-10-07  
+Udated 2021-10-07  
 
 
 In this multi-part tutorial we will covering how to provision RHEL VMs to a vSphere environment from Red Hat Satellite.
 
-In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment with three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services for the network that is hosting vSphere environment.  Note: Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.
+In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment with three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services for the network that is hosting vSphere environment.  Note: Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
+
+After Satellite is installed point your vSphere environment to the Satellite server for DNS services.  I would also recommend creating a local time server and pointing all components in this lab environment to the same local time source.
 
 
 ### Pre-Reqs
