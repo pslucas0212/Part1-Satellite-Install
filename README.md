@@ -2,13 +2,13 @@
 
 [Tutorial Menu](https://github.com/pslucas0212/RedHat-Satellite-VM-Provisioning-to-vSphere-Tutorial)  
 
-
+Red Hat Satellite is a powerful content management and provisioning tool that you can add to any Red Hat Enterprise Linux subscription with the addition of a Smart Management subscription.  With Red Hat Satellite you can curate specific content across mutliple lifecycle environments through out your entire RHEL enviroment whether it is on-prem, in the cloud or hybrid.  In fact you can use Red Hat Satellite with your market-place instances of RHEL.  
 
 In this multi-part tutorial we will covering how to provision RHEL VMs to a vSphere environment from Red Hat Satellite.
 
-In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment with three esxi server that have internet access for the installation.  For this lab Satellite will provide DNS and DHCP services for the network that is hosting vSphere environment.  Note: Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
+In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands-on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment with three EXSi servers that have internet access for the installation.  For this lab, Satellite will provide DNS and DHCP services for the network that is hosting vSphere environment.  Note: Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
 
-After Satellite is installed point your vSphere environment to the Satellite server for DNS services.  I would also recommend creating a local time server and pointing all components in this lab environment to the same local time source.
+After Satellite is installed point your vSphere environment to the Satellite server for DNS services.  I would also recommend creating a local time server and pointing all system in this lab environment to the same local time source.
 
 
 ### Pre-Reqs
@@ -16,11 +16,21 @@ After Satellite is installed point your vSphere environment to the Satellite ser
 
 Create a VM for Satellite and install RHEL 7.9.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 7.9 VM, we will ssh to the RHEL VM and work from the command line.
 
-Register Satellite Server to RHSM
+For this lab environment I chose sat01.example.com for the hostname of the server hosting Satellite.  
+
+Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosgint Satellite.  If the Satellite hostname is not available from DNS, the intial installation will fail.  After installing Satellite, we will use the DNS service on Statellite.
+```
+# ping -c3 localhost
+# ping -c3 `hostname -f`
+# dig sat01.example.com +short
+# dig -x 10.1.10.251 +short
+```   
+
+Register Satellite Server to RHSM.
 ```
 # sudo subscription-manager register --org=<org id> --activationkey=<activation key>
 ```
-You can verify the registration
+You can verify the registration with following command.
 ```
 # sudo subscription-manager status
 ```       
@@ -30,13 +40,13 @@ I would also recommend registering this server to Insights.
 # insights-client --enable
 ```
 
-Install all patches on your RHEL 7.9 instance:
+Install all patches on your RHEL 7.9 instance.
 ```
 # sudo yum -y update
 ```
  
 
-Update the firewall rules for Satellite
+Update the firewall rules for Satellite.
 ```
 # sudo firewall-cmd \
 --add-port="80/tcp" --add-port="443/tcp" \
@@ -56,28 +66,18 @@ Verify the firewall changes
 ```
 # sudo firewall-cmd --list-all
 ```
-Setup System Clock with chrony.  I have a stratum 0 time server that my sytems use for synching time.  Type the following command to check the the time synch status (I like the verbose option)
+Setup system Clock with chrony.  I have local time server that my sytems use for synching time.  Type the following command to check the the time synch status.  
 ```
 # chronyc sources -v
 ```
-Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup
-```
-# ping -c3 localhost
-# ping -c3 `hostname -f`
-# dig sat01.example.com +short
-# dig -x 10.1.10.251 +short
-```    
-To avoid discrepancies with static and transient host names, set all the host names on the system 
-```
-# hostnamectl set-hostname sat01.example.com
-```
+
 #### Configure and enable repositories
 
-Disable all repos
+Disable all repos.
 ```    
 # sudo subscription-manager repos --disable "*"
 ```       
-enable the following repos
+Enable the following repositories.
 ```    
 # sudo subscription-manager repos --enable=rhel-7-server-rpms \
 --enable=rhel-7-server-satellite-6.9-rpms \
@@ -85,35 +85,35 @@ enable the following repos
 --enable=rhel-server-rhscl-7-rpms \
 --enable=rhel-7-server-ansible-2.9-rpms
 ```
-Clear any meta data
+Clear any meta-data.   
 ```    
 # sudo yum clean all
 ```          
-Verify repos enabled
+Verify that repositories are enabled.  
 ```    
 # sudo yum repolist enabled
 # sudo subscription-manager repos --list-enabled
 ```          
 
 ### Satellite Installation
-- Install Satellite Server packages and the install Satellite
+Install Satellite Server packages and then install Satellite.  
 ```
 # sudo yum -y update       
 # sudo yum install satellite
 ```
-??? What's this for???
-- Install SOS package on base OS
+
+Install SOS package on base OS for intial systems analysis in case you need to collect problem determination for any system related issues.  
 ```
 # sudo yum install sos
 ```
 
-- We will intially run the satellite-installer to create a userid and password and generate an answer file.  This will take several minutes to complete.  
+We will intially run the satellite-installer to create a userid and password and generate an answer file.  This will take several minutes to complete.  
 ```
 # sudo satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
 --foreman-initial-admin-password Passw0rd!
 ```
-- Rerun the satellite-install to create DNS and DHCP services to support provisioing from Satellite.  This will take several minutes to complete.  
+Rerun the satellite-install to create DNS and DHCP services to support provisioing from Satellite.  This will take several minutes to complete.  
 ```
 # satellite-installer --foreman-proxy-dhcp true \
 --foreman-proxy-dhcp-managed true \
@@ -133,26 +133,27 @@ Verify repos enabled
 --foreman-proxy-tftp-managed true
 ```
 
-Use the following command to find the name of the Satellite server you just updated
+Use the following command to find the name of the Satellite server you just updated.
 ```
 # hammer proxy list
 ```
 
-See the services configured on your Satellite server
+See which services are configured on your Satellite server.  We want to verify that the DNS and DHCP services are enabled.
 ```
 # hammer proxy info --name sat01.example.com
 ```
 
-If the just added services do not show, try refreshing the Satellite features
+If recently add services such as DNS or DHCP are not part of the output from the previous command, try refreshing the Satellite features.
 ```
 # hammer proxy refresh-features --name sat01.example.com
 ```
+ 
 
 ### Login into the Satellite console  
 
 We can now launch and login to the Satellite console by entering [http://sat01.example.com](http://sat01.example.com) for the Satellite url.  Satellite will redirect the browser to Satellite's secure login page.  You will need to accept Satellite's certificate for your browser.  
 
-For this example we are using a local login.  For production work you will want to integrate your IDM system with Satelllite. Enter the user id and password and click Login button.  
+For this example we are using a local login.  For production work you will want to integrate your directory service with Satelllite. Enter the user id and password and click Login button.  
 
 ![Click Login button](/images/sat01.png)  
 
