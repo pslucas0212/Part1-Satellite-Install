@@ -107,15 +107,12 @@ Install SOS package on base OS for intial systems analysis in case you need to c
 # sudo yum install sos
 ```
 
-We will intially run the satellite-installer to create a userid and password and generate an answer file.  This will take several minutes to complete.  
+We will  run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
 ```
 # sudo satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
 --foreman-initial-admin-password Passw0rd!
-```
-Rerun the satellite-install to create DNS and DHCP services to support provisioing from Satellite.  This will take several minutes to complete.  
-```
-# satellite-installer --foreman-proxy-dhcp true \
+--foreman-proxy-dhcp true \
 --foreman-proxy-dhcp-managed true \
 --foreman-proxy-dhcp-gateway "10.1.10.1" \
 --foreman-proxy-dhcp-interface "ens192" \
