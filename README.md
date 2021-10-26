@@ -109,7 +109,7 @@ Install SOS package on base OS for intial systems analysis in case you need to c
 
 We will  run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
 ```
-# sudo satellite-installer --scenario satellite \
+# satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
 --foreman-initial-admin-password Passw0rd!
 --foreman-proxy-dhcp true \
