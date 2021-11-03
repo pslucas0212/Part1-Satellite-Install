@@ -142,6 +142,21 @@ If the installation is progessing successfully, you will see similar screnn outp
 2021-11-03 15:51:22 [NOTICE] [configure] 300 out of 2460 done.
 2021-11-03 15:52:12 [NOTICE] [configure] 400 out of 2460 done.
 ...
+2021-11-03 16:06:20 [NOTICE] [configure] 3000 out of 3300 done.
+2021-11-03 16:06:31 [NOTICE] [configure] 3100 out of 3300 done.
+2021-11-03 16:08:06 [NOTICE] [configure] 3200 out of 3300 done.
+2021-11-03 16:08:31 [NOTICE] [configure] System configuration has finished.
+  Success!
+  * Satellite is running at https://sat01.example.com
+      Initial credentials are admin / Passw0rd!
+
+  * To install an additional Capsule on separate machine continue by running:
+
+      capsule-certs-generate --foreman-proxy-fqdn "$CAPSULE" --certs-tar "/root/$CAPSULE-certs.tar"
+  * Capsule is running at https://sat01.example.com:9090
+
+  The full log is at /var/log/foreman-installer/satellite.log
+Package versions are being locked.
 ```
 Use the following command to find the name of the Satellite server you just updated.
 ```
