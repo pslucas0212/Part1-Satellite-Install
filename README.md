@@ -111,7 +111,7 @@ We will  run the satellite-installer to create a userid and password along with 
 ```
 # satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
---foreman-initial-admin-password Passw0rd!
+--foreman-initial-admin-password Passw0rd! \
 --foreman-proxy-dhcp true \
 --foreman-proxy-dhcp-managed true \
 --foreman-proxy-dhcp-gateway "10.1.10.1" \
