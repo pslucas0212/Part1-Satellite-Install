@@ -158,6 +158,11 @@ If the installation is progessing successfully, you will see similar screnn outp
   The full log is at /var/log/foreman-installer/satellite.log
 Package versions are being locked.
 ```
+```
+satellite-installer --scenario satellite \
+--foreman-proxy-dns-server "10.1.10.254"
+```
+
 Use the following command to find the name of the Satellite server you just updated.
 ```
 # hammer proxy list
