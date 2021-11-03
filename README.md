@@ -129,7 +129,20 @@ We will  run the satellite-installer to create a userid and password along with 
 --foreman-proxy-tftp true \
 --foreman-proxy-tftp-managed true
 ```
-
+If the installation is progessing successfully, you will see similar screnn output like the following.
+```
+2021-11-03 15:48:05 [NOTICE] [root] Loading default values from puppet modules...
+2021-11-03 15:48:08 [NOTICE] [root] ... finished
+2021-11-03 15:48:09 [NOTICE] [root] Running validation checks
+2021-11-03 15:50:50 [NOTICE] [configure] Starting system configuration.
+  The total number of configuration tasks may increase during the run.
+  Observe logs or specify --verbose-log-level to see individual configuration tasks.
+2021-11-03 15:51:01 [NOTICE] [configure] 100 out of 2460 done.
+2021-11-03 15:51:01 [NOTICE] [configure] 200 out of 2460 done.
+2021-11-03 15:51:22 [NOTICE] [configure] 300 out of 2460 done.
+2021-11-03 15:52:12 [NOTICE] [configure] 400 out of 2460 done.
+...
+```
 Use the following command to find the name of the Satellite server you just updated.
 ```
 # hammer proxy list
