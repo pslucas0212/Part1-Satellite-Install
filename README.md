@@ -16,14 +16,16 @@ After Satellite is installed point your vSphere environment to the Satellite ser
 
 Create a VM for Satellite and install RHEL 7.9.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 7.9 VM, we will ssh to the RHEL VM and work from the command line.
 
-For this lab environment I chose sat01.example.com for the hostname of the server hosting Satellite.  
+For this lab environment I chose sat01.example.com for the hostname of the server hosting Satellite. 
 
-Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosgint Satellite.  If the Satellite hostname is not available from DNS, the intial installation will fail.  After installing Satellite, we will use the DNS service on Statellite.
+You will need a DNS server running to support the installation of Satellite.  After installing Satellite, we will use the DNS service on Satellite.    
+
+Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosting Satellite.  If the Satellite hostname is not available from DNS, the intial installation will fail.    
 ```
 # ping -c3 localhost
 # ping -c3 `hostname -f`
 # dig sat01.example.com +short
-# dig -x 10.1.10.251 +short
+# dig -x 10.1.10.253 +short
 ```   
 
 Register Satellite Server to RHSM.
@@ -158,6 +160,7 @@ If the installation is progessing successfully, you will see similar screnn outp
   The full log is at /var/log/foreman-installer/satellite.log
 Package versions are being locked.
 ```
+Remember that early I said that we will use Satellite for DNS services.  After completeing the install above, I change the IP addres of my server hosting Satellite and rerun the satellite-installer and update the ip address for the --foreman-proxy-dns-server option.
 ```
 satellite-installer --scenario satellite \
 --foreman-proxy-dns-server "10.1.10.254"
