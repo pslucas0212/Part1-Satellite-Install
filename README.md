@@ -33,18 +33,42 @@ Register Satellite Server to RHSM.
 You can verify the registration with following command.
 ```
 # sudo subscription-manager status
-```       
-I would also recommend registering this server to Insights.  
-```
-# yum -y install insights-client
-# insights-client --enable
-```
+```    
+#### Configure and enable repositories
 
+Disable all repos.
+```    
+# sudo subscription-manager repos --disable "*"
+```       
+Enable the following repositories.
+```    
+# sudo subscription-manager repos --enable=rhel-7-server-rpms \
+--enable=rhel-7-server-satellite-6.9-rpms \
+--enable=rhel-7-server-satellite-maintenance-6-rpms \
+--enable=rhel-server-rhscl-7-rpms \
+--enable=rhel-7-server-ansible-2.9-rpms
+```
+Clear any meta-data.   
+```    
+# sudo yum clean all
+```          
+Verify that repositories are enabled.  
+```    
+# sudo yum repolist enabled
+# sudo subscription-manager repos --list-enabled
+```          
+
+#### Update the RHEL 7.9 instance and finish final pre-reqs
 Install all patches on your RHEL 7.9 instance.
 ```
 # sudo yum -y update
 ```
  
+I would also recommend registering this server to Insights.  
+```
+# yum -y install insights-client
+# insights-client --enable
+```
 
 Update the firewall rules for Satellite.
 ```
@@ -71,34 +95,10 @@ Setup system Clock with chrony.  I have local time server that my sytems use for
 # chronyc sources -v
 ```
 
-#### Configure and enable repositories
-
-Disable all repos.
-```    
-# sudo subscription-manager repos --disable "*"
-```       
-Enable the following repositories.
-```    
-# sudo subscription-manager repos --enable=rhel-7-server-rpms \
---enable=rhel-7-server-satellite-6.9-rpms \
---enable=rhel-7-server-satellite-maintenance-6-rpms \
---enable=rhel-server-rhscl-7-rpms \
---enable=rhel-7-server-ansible-2.9-rpms
-```
-Clear any meta-data.   
-```    
-# sudo yum clean all
-```          
-Verify that repositories are enabled.  
-```    
-# sudo yum repolist enabled
-# sudo subscription-manager repos --list-enabled
-```          
 
 ### Satellite Installation
 Install Satellite Server packages and then install Satellite.  
-```
-# sudo yum -y update       
+```     
 # sudo yum install satellite
 ```
 
