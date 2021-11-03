@@ -8,13 +8,13 @@ In this multi-part tutorial we will covering how to provision RHEL VMs to a vSph
 
 In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.9.  The purpose of this setup is to give you a quick hands-on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 6.7 lab environment with three EXSi servers that have internet access for the installation.  For this lab, Satellite will provide DNS and DHCP services for the network that is hosting vSphere environment.  Note: Satellite can be configured to work with ISC compliant DNS and DHCP services.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
 
-After Satellite is installed point your vSphere environment to the Satellite server for DNS services.  I would also recommend creating a local time server and pointing all system in this lab environment to the same local time source.
+I would recommend creating a local time server and configure all system in this lab environment to use the same local time source.
 
 
 ### Pre-Reqs
 
 
-Create a VM for Satellite and install RHEL 7.9.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 7.9 VM, we will ssh to the RHEL VM and work from the command line.
+Create a VM for Satellite and install RHEL 7.9.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access (SCA) on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 7.9 VM, we will ssh to the RHEL VM and work from the command line.
 
 For this lab environment I chose sat01.example.com for the hostname of the server hosting Satellite. 
 
@@ -28,7 +28,7 @@ Check hostname and local DNS resolution.  Use dig to test forward and reverse lo
 # dig -x 10.1.10.253 +short
 ```   
 
-Register Satellite Server to RHSM.
+Register Satellite Server to Red Hat Subscription Management service.
 ```
 # sudo subscription-manager register --org=<org id> --activationkey=<activation key>
 ```
@@ -36,7 +36,9 @@ You can verify the registration with following command.
 ```
 # sudo subscription-manager status
 ```    
-#### Configure and enable repositories
+#### Configure and enable repositories  
+
+With SCA, we still need to enable releveant repositories for our RHEL instances.  Following steps will walk you through enabling repos.
 
 Disable all repos.
 ```    
@@ -60,7 +62,7 @@ Verify that repositories are enabled.
 # sudo subscription-manager repos --list-enabled
 ```          
 
-#### Update the RHEL 7.9 instance and finish final pre-reqs
+#### Update the RHEL 7.9 instance and finish server setup
 Install all patches on your RHEL 7.9 instance.
 ```
 # sudo yum -y update
@@ -70,6 +72,10 @@ I would also recommend registering this server to Insights.
 ```
 # yum -y install insights-client
 # insights-client --enable
+```
+Install SOS package on base OS for intial systems analysis in case you need to collect problem determination for any system related issues.  
+```
+# sudo yum install sos
 ```
 
 Update the firewall rules for Satellite.
@@ -104,12 +110,7 @@ Install Satellite Server packages and then install Satellite.
 # sudo yum install satellite
 ```
 
-Install SOS package on base OS for intial systems analysis in case you need to collect problem determination for any system related issues.  
-```
-# sudo yum install sos
-```
-
-We will  run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
+We will run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
 ```
 # satellite-installer --scenario satellite \
 --foreman-initial-admin-username admin \
@@ -131,7 +132,7 @@ We will  run the satellite-installer to create a userid and password along with 
 --foreman-proxy-tftp true \
 --foreman-proxy-tftp-managed true
 ```
-If the installation is progessing successfully, you will see similar screnn output like the following.
+If the installation is progessing successfully, your screen output will look similar to the following example.
 ```
 2021-11-03 15:48:05 [NOTICE] [root] Loading default values from puppet modules...
 2021-11-03 15:48:08 [NOTICE] [root] ... finished
@@ -160,7 +161,7 @@ If the installation is progessing successfully, you will see similar screnn outp
   The full log is at /var/log/foreman-installer/satellite.log
 Package versions are being locked.
 ```
-Remember that early I said that we will use Satellite for DNS services.  After completeing the install above, I change the IP addres of my server hosting Satellite and rerun the satellite-installer and update the ip address for the --foreman-proxy-dns-server option.
+Remember that early I said that we will use Satellite for DNS services.  After completeing the install above, I change the IP addres of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
 ```
 satellite-installer --scenario satellite \
 --foreman-proxy-dns-server "10.1.10.254"
@@ -176,7 +177,7 @@ See which services are configured on your Satellite server.  We want to verify t
 # hammer proxy info --name sat01.example.com
 ```
 
-If recently add services such as DNS or DHCP are not part of the output from the previous command, try refreshing the Satellite features.
+If services such as DNS or DHCP are not part of the output from the previous command, try refreshing the Satellite features.
 ```
 # hammer proxy refresh-features --name sat01.example.com
 ```
