@@ -20,7 +20,7 @@ For this lab environment I chose sat01.example.com for the hostname of the serve
 
 You will need a DNS server running to support the installation of Satellite.  After installing Satellite, we will use the DNS service on Satellite.    
 
-Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosting Satellite.  If the Satellite hostname is not available from DNS, the intial installation will fail.    
+Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosting Satellite.  If the Satellite hostname is not available from DNS, the initial installation will fail.    
 ```
 # ping -c3 localhost
 # ping -c3 `hostname -f`
@@ -32,13 +32,13 @@ Register Satellite Server to Red Hat Subscription Management service.
 ```
 # sudo subscription-manager register --org=<org id> --activationkey=<activation key>
 ```
-You can verify the registration with following command.
+You can verify the registration with the following command.
 ```
 # sudo subscription-manager status
 ```    
 #### Configure and enable repositories  
 
-With SCA, we still need to enable releveant repositories for our RHEL instances.  Following steps will walk you through enabling repos.
+With SCA, we still need to enable relevant repositories for our RHEL instances.  Following steps will walk you through enabling repos.
 
 Disable all repos.
 ```    
@@ -73,7 +73,7 @@ I would also recommend registering this server to Insights.
 # yum -y install insights-client
 # insights-client --enable
 ```
-Install SOS package on base OS for intial systems analysis in case you need to collect problem determination for any system related issues.  
+Install SOS package on base OS for initial systems analysis in case you need to collect problem determination for any system related issues.  
 ```
 # sudo yum install sos
 ```
@@ -98,7 +98,7 @@ Verify the firewall changes
 ```
 # sudo firewall-cmd --list-all
 ```
-Setup system Clock with chrony.  I have local time server that my sytems use for synching time.  Type the following command to check the the time synch status.  
+Setup system Clock with chrony.  I have a local time server that my systems use for synching time.  Type the following command to check the the time synch status.  
 ```
 # chronyc sources -v
 ```
@@ -132,7 +132,7 @@ We will run the satellite-installer to create a userid and password along with t
 --foreman-proxy-tftp true \
 --foreman-proxy-tftp-managed true
 ```
-If the installation is progessing successfully, your screen output will look similar to the following example.
+If the installation is progressing successfully, your screen output will look similar to the following example.
 ```
 2021-11-03 15:48:05 [NOTICE] [root] Loading default values from puppet modules...
 2021-11-03 15:48:08 [NOTICE] [root] ... finished
@@ -161,7 +161,7 @@ If the installation is progessing successfully, your screen output will look sim
   The full log is at /var/log/foreman-installer/satellite.log
 Package versions are being locked.
 ```
-Remember that early I said that we will use Satellite for DNS services.  After completeing the install above, I change the IP addres of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
+Remember that early I said that we will use Satellite for DNS services.  After completing the install above, I change the IP address of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
 ```
 satellite-installer --scenario satellite \
 --foreman-proxy-dns-server "10.1.10.254"
