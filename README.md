@@ -161,7 +161,7 @@ If the installation is progressing successfully, your screen output will look si
   The full log is at /var/log/foreman-installer/satellite.log
 Package versions are being locked.
 ```
-Remember that early I said that we will use Satellite for DNS services.  After completing the install above, I change the IP address of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
+Remember that earlier I said that we will use Satellite for DNS services.  After completing the install above, I change the IP address of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
 ```
 satellite-installer --scenario satellite \
 --foreman-proxy-dns-server "10.1.10.254"
